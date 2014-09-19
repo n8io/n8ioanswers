@@ -1,12 +1,12 @@
 [
   {
-    "route": "/is/businessHours?date=1/1/1900 00:00:00",
+    "route": "/is/businessHours?date=1411136532",
     "params": [
       {
         "name": "date",
         "required": false,
         "type": "query",
-        "desc": "The UTC date to check if it is in busniness hours. If not provided, it evaluates the current date."
+        "desc": "The UTC unix date to check if it is in busniness hours. If not provided, it evaluates the current date."
       }
     ]
   },
@@ -50,7 +50,7 @@
         "name": "date",
         "required": false,
         "type": "query",
-        "desc": "The UTC date in which you want to check if it is a US Holiday. If not provided, it evaluates the current day."
+        "desc": "The short date in which you want to check if it is a US Holiday. If not provided, it evaluates the current day."
       }
     ]
   },

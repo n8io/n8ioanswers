@@ -4,7 +4,7 @@ module.exports = function(app){
   router
     .get('*', function(req, res, next){
       var isLY = isLeapYear(req.param('year'));
-      return res.status(isLY ? 200 : 404).send(isLY ? 'yes' : 'no');
+      return res.status(isLY ? 200 : 404).json({status:isLY});
     });
 
   function isLeapYear(year){

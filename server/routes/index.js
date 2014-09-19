@@ -4,6 +4,8 @@
   require('./leapYear')(app);
   require('./usHoliday')(app);
   require('./weather')(app);
+  require('./businessHours')(app);
 
+  require('./endpoints')(app);
   require('./fallback')(app);
 };

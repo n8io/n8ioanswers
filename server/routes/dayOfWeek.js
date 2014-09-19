@@ -31,7 +31,7 @@ module.exports = function(app){
   router
     .get('/:dayOfWeek', function(req, res, next){
       var isTodayThisDayOfWeek = moment().day() === req.dayOfWeek;
-      return res.status(isTodayThisDayOfWeek ? 200 : 404).send(isTodayThisDayOfWeek ? 'yes' : 'no');
+      return res.status(isTodayThisDayOfWeek ? 200 : 404).json({status:isTodayThisDayOfWeek});
     });
 
   app.use('/is/today', router);

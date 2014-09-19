@@ -31,7 +31,7 @@ module.exports = function(app){
   router
     .get('/:monthOfYear', function(req, res, next){
       var isMonthThisMonthOfYear = moment().month() === req.monthOfYear;
-      return res.status(isMonthThisMonthOfYear ? 200 : 404).send(isMonthThisMonthOfYear ? 'yes' : 'no');
+      return res.status(isMonthThisMonthOfYear ? 200 : 404).json({status:isMonthThisMonthOfYear});
     });
 
   app.use('/is/month', router);

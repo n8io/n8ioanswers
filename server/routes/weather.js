@@ -62,6 +62,7 @@ module.exports = function(app){
           });
         }
 
+        weather.status = willItRain;
         return res.status(willItRain ? 200 : 404).json(weather);
       });
     })
@@ -99,6 +100,7 @@ module.exports = function(app){
           isItRainingToASpecificIntensity = weather.currently.precipIntensity >= targetMinPrecipIntensity;
         }
 
+        weather.status = isItRainingToASpecificIntensity;
         return res.status(isItRainingToASpecificIntensity ? 200 : 404).json(weather);
       });
     })
@@ -115,6 +117,8 @@ module.exports = function(app){
         }
 
         var isItRaining = weather && weather.currently && weather.currently.precipIntensity;
+
+        weather.status = isItRaining;
 
         return res.status(isItRaining ? 200 : 404).json(weather);
       });

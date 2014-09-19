@@ -72,7 +72,7 @@ module.exports = function(app){
               name: 'latLong',
               required: true,
               type: 'route',
-              desc: 'The latitude and longitude of the geographic location you want to know whether or not it is raining. Must be comma separated. E.g., 41.0842, -81.5141'
+              desc: 'The latitude and longitude of the geographic location you want to know whether or not it is raining in the next hour. Must be comma separated. E.g., 41.0842, -81.5141'
             },
             {
               name: 'apiKey',

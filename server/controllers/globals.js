@@ -1,6 +1,6 @@
 express = require('express');
 app = express();
-moment = require('moment');
+moment = require('moment-timezone');
 _ = require('lodash');
 _.str = require('underscore.string');
 guid = require('guid');

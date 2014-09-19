@@ -6,7 +6,7 @@
         "name": "date",
         "required": false,
         "type": "query",
-        "desc": "The UTC unix date to check if it is in busniness hours. If not provided, it evaluates the current date."
+        "desc": "The date to check if it is in busniness hours. If not provided, it evaluates the current date. All dates are evaluated Eastern Time."
       }
     ]
   },
@@ -50,7 +50,7 @@
         "name": "date",
         "required": false,
         "type": "query",
-        "desc": "The short date in which you want to check if it is a US Holiday. If not provided, it evaluates the current day."
+        "desc": "The date in which you want to check if it is a US Holiday. If not provided, it evaluates the current day. All dates are evaluated as Eastern Time."
       }
     ]
   },

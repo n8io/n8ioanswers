@@ -12,6 +12,7 @@ module.exports = function(app){
     });
 
   function isBusinessHours(dt){
+    dt = dt.tz('America/New_York');
     if(dt.day() === 0 || dt.day() === 6){
       return false;
     }
@@ -20,8 +21,8 @@ module.exports = function(app){
       return false;
     }
 
-    var startDate = moment(dt.format('MM/DD/YYYY') + ' 08:00:00');
-    var endDate = moment(dt.format('MM/DD/YYYY') + ' 16:59:59');
+    var startDate = moment(dt.format('MM/DD/YYYY') + ' 08:00:00').tz('America/New_York');
+    var endDate = moment(dt.format('MM/DD/YYYY') + ' 16:59:59').tz('America/New_York');
 
     return dt >= startDate && dt <= endDate;
   }

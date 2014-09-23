@@ -7,7 +7,9 @@ module.exports = function(app){
       var isInWorkHours = isBusinessHours(dt);
       return res.status(isInWorkHours ? 200 : 404).json({
         status:isInWorkHours,
-        evaluatedDate: dt.format()
+        startDate: moment.tz(dt.format('MM/DD/YYYY') + ' 08:00:00', 'America/New_York').format(),
+        evaluatedDate: dt.format(),
+        endDate: moment.tz(dt.format('MM/DD/YYYY') + ' 16:59:69', 'America/New_York').format(),
       });
     });
 

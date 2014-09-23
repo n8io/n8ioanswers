@@ -10,7 +10,7 @@ module.exports = function(app){
 
     sm = (sm || defaultStartTimeInMinutes).toLowerCase();
 
-    if(parseInt(sm, 0) > 0 && parseInt(sm, 0) < 3600){
+    if(parseInt(sm, 0) <= 0 || parseInt(sm, 0) > 3600){
       return res.status(400).json({message:badParamMessage});
     }
 
@@ -24,7 +24,7 @@ module.exports = function(app){
 
     em = (em || defaultEndTimeInMinutes).toLowerCase();
 
-    if(parseInt(em, 0) > 0 && parseInt(em, 0) < 3600){
+    if(parseInt(em, 0) <= 0 || parseInt(em, 0) > 3600){
       return res.status(400).json({message:badParamMessage});
     }
 

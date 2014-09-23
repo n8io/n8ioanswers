@@ -20,8 +20,8 @@ module.exports = function(app){
       return false;
     }
 
-    var startDate = moment(dt.format('MM/DD/YYYY') + ' 08:00:00').tz('America/New_York');
-    var endDate = moment(dt.format('MM/DD/YYYY') + ' 16:59:59').tz('America/New_York');
+    var startDate = moment.tz(dt.format('MM/DD/YYYY') + ' 08:00:00', 'America/New_York');
+    var endDate = moment.tz(dt.format('MM/DD/YYYY') + ' 16:59:59', 'America/New_York');
 
     console.log('startDate', startDate.format());
     console.log('dt', dt.format());

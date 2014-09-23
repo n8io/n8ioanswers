@@ -3,7 +3,7 @@ module.exports = function(app){
 
   router
     .get('/', function(req, res, next){
-      var dt = moment(req.param('date')).isValid() ? moment(req.param('date')) : moment().tz('America/New_York');
+      var dt = moment(req.param('date')||'Invalid date').isValid() ? moment(req.param('date')) : moment().tz('America/New_York');
       var isInWorkHours = isBusinessHours(dt);
       return res.status(isInWorkHours ? 200 : 404).json({
         status:isInWorkHours,

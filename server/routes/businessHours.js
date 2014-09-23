@@ -111,7 +111,7 @@ module.exports = function(app){
         startDate: getStartLocalTime(dt, defaultTimezone, defaultStartTimeInMinutes).format(),
         evaluatedDate: dt.format(),
         endDate: getEndLocalTime(dt, defaultTimezone, defaultEndTimeInMinutes).format(),
-        timezone: req.timezone
+        timezone: defaultTimezone
       });
     });
 

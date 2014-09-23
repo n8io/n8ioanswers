@@ -1,12 +1,30 @@
 [
   {
-    "route": "/is/businessHours?date=1411136532",
+    "route": "/is/businessHours/:date/:startTimeInMinutes/:endTimeInMinutes/:timezone",
     "params": [
       {
         "name": "date",
         "required": false,
-        "type": "query",
+        "type": "route",
         "desc": "The date to check if it is in busniness hours. If not provided, it evaluates the current date. All dates are evaluated Eastern Time."
+      },
+      {
+        "name": "startTimeInMinutes",
+        "required": false,
+        "type": "route",
+        "desc": "The start time of business hours in minutes after 00:00:00."
+      },
+      {
+        "name": "endTimeInMinutes",
+        "required": false,
+        "type": "route",
+        "desc": "The end time of business hours in minutes after 00:00:00."
+      },
+      {
+        "name": "timezone",
+        "required": false,
+        "type": "route",
+        "desc": "The moment-timezone.js known timezone string value."
       }
     ]
   },

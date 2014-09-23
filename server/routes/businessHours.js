@@ -10,7 +10,7 @@ module.exports = function(app){
 
     sm = (sm || defaultStartTimeInMinutes).toLowerCase();
 
-    if(!parseInt(sm, 0)){
+    if(parseInt(sm, 0) > 0 && parseInt(sm, 0) < 3600){
       return res.status(400).json({message:badParamMessage});
     }
 
@@ -24,7 +24,7 @@ module.exports = function(app){
 
     em = (em || defaultEndTimeInMinutes).toLowerCase();
 
-    if(!parseInt(em, 0)){
+    if(parseInt(em, 0) > 0 && parseInt(em, 0) < 3600){
       return res.status(400).json({message:badParamMessage});
     }
 
@@ -64,7 +64,7 @@ module.exports = function(app){
       return res.status(400).json({message:badParamMessage});
     }
 
-    req.date = moment(date).format('YYYY-MM-DDTHH:mm:ss');
+    req.date = moment(date).format('YYYY-MM-DDTHH:mm:ss'); // Strip tz info
 
     next();
   });
@@ -78,6 +78,28 @@ module.exports = function(app){
         startDate: getStartLocalTime(dt, req.timezone, req.startTimeInMinutes).format(),
         evaluatedDate: dt.format(),
         endDate: getEndLocalTime(dt, req.timezone, req.endTimeInMinutes).format(),
+        timezone: req.timezone
+      });
+    })
+    .get('/:sm/:em/:timezone', function(req, res, next){
+      var dt = moment.tz(req.timezone);
+      var isInWorkHours = isBusinessHours(dt, req.timezone, req.startTimeInMinutes, req.endTimeInMinutes);
+      return res.status(isInWorkHours ? 200 : 404).json({
+        status:isInWorkHours,
+        startDate: getStartLocalTime(dt, req.timezone, req.startTimeInMinutes).format(),
+        evaluatedDate: dt.format(),
+        endDate: getEndLocalTime(dt, req.timezone, req.endTimeInMinutes).format(),
+        timezone: req.timezone
+      });
+    })
+    .get('/:timezone', function(req, res, next){
+      var dt = moment.tz(req.timezone);
+      var isInWorkHours = isBusinessHours(dt, req.timezone, defaultStartTimeInMinutes, defaultEndTimeInMinutes);
+      return res.status(isInWorkHours ? 200 : 404).json({
+        status:isInWorkHours,
+        startDate: getStartLocalTime(dt, req.timezone, defaultStartTimeInMinutes).format(),
+        evaluatedDate: dt.format(),
+        endDate: getEndLocalTime(dt, req.timezone, defaultEndTimeInMinutes).format(),
         timezone: req.timezone
       });
     })
@@ -106,11 +128,7 @@ module.exports = function(app){
     }
 
     var startDate = getStartLocalTime(dt, timezone, startTimeInMinutes);
-    var endDate = getEndLocalTime(dt, timezone, endTimeInMinutes).add(-1, 'seconds');
-
-    console.log('startDate', startDate.format());
-    console.log('dt', dt.format());
-    console.log('endDate', endDate.format());
+    var endDate = getEndLocalTime(dt, timezone, endTimeInMinutes);
 
     return dt.unix() >= startDate.unix() && dt.unix() <= endDate.unix();
   }

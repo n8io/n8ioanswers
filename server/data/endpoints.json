@@ -107,6 +107,29 @@
     ]
   },
   {
+    "route": "/is/weather/raining/soon/:lat/:long/:apiKey",
+    "params": [
+      {
+        "name": "lat",
+        "required": true,
+        "type": "route",
+        "desc": "The latitude of the geographic location you want to know whether or not it is raining in the next hour."
+      },
+      {
+        "name": "long",
+        "required": true,
+        "type": "route",
+        "desc": "The longitude of the geographic location you want to know whether or not it is raining in the next hour."
+      },
+      {
+        "name": "apiKey",
+        "required": true,
+        "type": "route",
+        "desc": "Your forecast.io api key"
+      }
+    ]
+  },
+  {
     "route": "/is/weather/raining/:intesity/:latLong/:apiKey",
     "params": [
       {

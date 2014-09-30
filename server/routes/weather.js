@@ -30,6 +30,30 @@ module.exports = function(app){
     next();
   });
 
+  router.param('lat', function(req, res, next, lat){
+    var badParamMessage = INVALID_PARAM_MESSAGE.replace('{{param}}', 'latitude');
+
+    if(!parseInt(lat, 0) && parseInt(lat, 0) > 0){
+      return res.status(400).json({message:badParamMessage});
+    }
+
+    req.latitude = parseInt(lat, 0);
+
+    next();
+  });
+
+  router.param('long', function(req, res, next, long){
+    var badParamMessage = INVALID_PARAM_MESSAGE.replace('{{param}}', 'longitude');
+
+    if(!parseInt(long, 0) && parseInt(long, 0) > 0){
+      return res.status(400).json({message:badParamMessage});
+    }
+
+    req.longitude = parseInt(long, 0);
+
+    next();
+  });
+
   router.param('apiKey', function(req, res, next, apiKey){
     var badParamMessage = INVALID_PARAM_MESSAGE.replace('{{param}}', 'apiKey');
 
@@ -43,6 +67,29 @@ module.exports = function(app){
   });
 
   router
+    .get('/raining/soon/:lat/:long/:apiKey', function(req, res, next){
+      var options = {
+        APIKey: req.apiKey
+      };
+
+      forecast = new Forecast(options);
+
+      forecast.get(req.latitude, req.longitude, function(err, resp, weather){
+        if(err){
+          return res.status(500).json(err);
+        }
+
+        var willItRain = false;
+        if(weather && weather.minutely && weather.minutely.data){
+          willItRain = _.some(weather.minutely.data, function(wmd){
+            return wmd.precipProbability >= 0.2 && wmd.precipIntensity >= 0.002;
+          });
+        }
+
+        weather.status = !!willItRain;
+        return res.status(willItRain ? 200 : 404).json(weather);
+      });
+    })
     .get('/raining/soon/:latLong/:apiKey', function(req, res, next){
       var options = {
         APIKey: req.apiKey
